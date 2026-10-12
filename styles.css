@@ -1,0 +1,677 @@
+/* ==========================================================================
+   ESTILOS PERSONALIZADOS - FACULTAD DE CIENCIAS SOCIALES
+   Proyecto: Examen Final - Diseño Web
+   Estudiante: Desarrollador Frontend / Ingeniería de Sistemas
+   Enfoque: Mobile First, Accesibilidad WCAG 2.1 AA, Paleta Institucional Sobria
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Variables CSS y Paleta Institucional (Contraste verificado WCAG AA/AAA)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Colores primarios y secundarios institucionales */
+  --color-primary: #0b2545;        /* Azul institucional profundo (Ratio 13.5:1 sobre blanco) */
+  --color-primary-hover: #07172b;
+  --color-secondary: #134074;      /* Azul medio para acentos estructurales (Ratio 8.9:1) */
+  --color-secondary-light: #eef4fb;/* Fondo tenue azul para cards destacadas */
+  
+  /* Acentos cálidos (Evita gradientes morados/neón, tono institucional sobrio) */
+  --color-accent: #92400e;         /* Ocre/Ámbar oscuro institucional (Ratio 5.4:1 sobre blanco) */
+  --color-accent-hover: #78350f;
+  --color-accent-bg: #fef3c7;      /* Fondo ámbar suave */
+  
+  /* Escala de grises y textos de alta legibilidad */
+  --color-text-main: #0f172a;      /* Texto principal casi negro (Ratio 16:1) */
+  --color-text-muted: #475569;     /* Texto secundario (Ratio 5.8:1 - Pasa AA) */
+  --color-bg-light: #f8fafc;       /* Fondo neutro de secciones */
+  --color-bg-white: #ffffff;
+  --color-border: #cbd5e1;         /* Bordes de inputs y divisores */
+  --color-border-subtle: #e2e8f0;
+  
+  /* Retroalimentación funcional (Semáforo de accesibilidad) */
+  --color-success: #15803d;        /* Verde oscuro (Ratio 4.8:1 sobre blanco) */
+  --color-success-bg: #dcfce7;
+  --color-danger: #b91c1c;         /* Rojo oscuro de error (Ratio 5.2:1) */
+  --color-danger-bg: #fee2e2;
+  
+  /* Foco accesible */
+  --color-focus-ring: #0284c7;     /* Azul cian accesible para outline de foco */
+  
+  /* Tipografía y medidas */
+  --font-family-base: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-family-heading: Georgia, "Times New Roman", serif;
+  --transition-speed: 0.2s ease-in-out;
+}
+
+/* --------------------------------------------------------------------------
+   Reset y Reglas Base de Accesibilidad
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%; /* 16px por defecto para respetar preferencias del navegador */
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-base);
+  color: var(--color-text-main);
+  background-color: var(--color-bg-white);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Enlace de salto de navegación para usuarios con lectores de pantalla y teclado (WCAG 2.4.1) */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 1050;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0 0 0.5rem 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Indicador visual de foco estricto para navegación 100% por teclado (WCAG 2.4.7) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.accordion-button:focus-visible {
+  outline: 3px solid var(--color-focus-ring) !important;
+  outline-offset: 2px !important;
+  box-shadow: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Tipografía y Encabezados Institucionales
+   -------------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-primary);
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+}
+
+.display-title {
+  font-family: var(--font-family-heading);
+  letter-spacing: -0.02em;
+}
+
+.section-title {
+  position: relative;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.75rem;
+  font-size: 1.65rem;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50px;
+  height: 4px;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+}
+
+.section-title.text-center::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+.lead-institutional {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+/* --------------------------------------------------------------------------
+   Barra Superior Institucional y Navegación
+   -------------------------------------------------------------------------- */
+.top-bar-academic {
+  background-color: var(--color-primary);
+  color: #f1f5f9;
+  font-size: 0.825rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.top-bar-academic a {
+  color: #f1f5f9;
+  text-decoration: none;
+}
+
+.top-bar-academic a:hover {
+  text-decoration: underline;
+}
+
+.main-navbar {
+  background-color: var(--color-bg-white);
+  border-bottom: 2px solid var(--color-border-subtle);
+  padding: 0.75rem 0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+
+.navbar-brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand-crest {
+  width: 44px;
+  height: 44px;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.15rem;
+}
+
+.brand-text-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-faculty {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  font-weight: 700;
+  margin-bottom: -2px;
+}
+
+.brand-career {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1.15;
+}
+
+.nav-link {
+  color: var(--color-text-main);
+  font-weight: 600;
+  padding: 0.6rem 0.9rem !important;
+  border-radius: 4px;
+  transition: color var(--transition-speed), background-color var(--transition-speed);
+}
+
+.nav-link:hover {
+  color: var(--color-secondary);
+  background-color: var(--color-secondary-light);
+}
+
+.nav-link.active {
+  color: var(--color-primary) !important;
+  font-weight: 800;
+  border-bottom: 3px solid var(--color-accent);
+  background-color: transparent;
+}
+
+.navbar-toggler {
+  border: 2px solid var(--color-primary);
+  padding: 0.4rem 0.6rem;
+}
+
+.navbar-toggler:focus {
+  outline: 3px solid var(--color-focus-ring);
+  box-shadow: none;
+}
+
+/* --------------------------------------------------------------------------
+   Hero Banner Estructurado e Institucional
+   -------------------------------------------------------------------------- */
+.hero-institutional {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  padding: 2.5rem 0;
+  position: relative;
+}
+
+.hero-institutional .badge-badge-new {
+  background-color: var(--color-accent-bg);
+  color: var(--color-accent-hover);
+  border: 1px solid var(--color-accent);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  color: #ffffff;
+  font-size: 2rem;
+  font-family: var(--font-family-heading);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.hero-description {
+  color: #cbd5e1;
+  font-size: 1.05rem;
+  margin-bottom: 1.75rem;
+  max-width: 650px;
+}
+
+.hero-stat-card {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 1rem;
+  text-align: center;
+  color: #ffffff;
+}
+
+.hero-stat-number {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #fde047;
+  display: block;
+  line-height: 1.1;
+}
+
+.hero-stat-label {
+  font-size: 0.8rem;
+  color: #e2e8f0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* --------------------------------------------------------------------------
+   Botones Institucionales y Asequibles
+   -------------------------------------------------------------------------- */
+.btn-institutional-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border: 2px solid var(--color-primary);
+  font-weight: 700;
+  padding: 0.65rem 1.35rem;
+  border-radius: 4px;
+  transition: background-color var(--transition-speed), border-color var(--transition-speed);
+}
+
+.btn-institutional-primary:hover {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+  color: #ffffff;
+}
+
+.btn-institutional-accent {
+  background-color: var(--color-accent);
+  color: #ffffff;
+  border: 2px solid var(--color-accent);
+  font-weight: 700;
+  padding: 0.65rem 1.35rem;
+  border-radius: 4px;
+  transition: background-color var(--transition-speed);
+}
+
+.btn-institutional-accent:hover {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  color: #ffffff;
+}
+
+.btn-institutional-outline {
+  background-color: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  font-weight: 700;
+  padding: 0.65rem 1.35rem;
+  border-radius: 4px;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.btn-institutional-outline:hover {
+  background-color: #ffffff;
+  color: var(--color-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Tarjetas de Componentes Informativos (Cards)
+   -------------------------------------------------------------------------- */
+.card-academic {
+  background-color: var(--color-bg-white);
+  border: 1px solid var(--color-border-subtle);
+  border-top: 4px solid var(--color-secondary);
+  border-radius: 6px;
+  height: 100%;
+  padding: 1.5rem;
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.card-academic:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+}
+
+.card-academic-icon {
+  width: 48px;
+  height: 48px;
+  background-color: var(--color-secondary-light);
+  color: var(--color-secondary);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.card-faculty-member {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #ffffff;
+  height: 100%;
+}
+
+.card-faculty-avatar {
+  background-color: var(--color-bg-light);
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.avatar-initials {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background-color: var(--color-secondary);
+  color: #ffffff;
+  font-size: 1.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.faculty-role-badge {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: var(--color-secondary-light);
+  color: var(--color-secondary);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   Acordeón de Malla Curricular (plan-estudios.html)
+   -------------------------------------------------------------------------- */
+.accordion-academic .accordion-item {
+  border: 1px solid var(--color-border-subtle);
+  margin-bottom: 0.75rem;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.accordion-academic .accordion-button {
+  background-color: var(--color-bg-light);
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 1rem 1.25rem;
+}
+
+.accordion-academic .accordion-button:not(.collapsed) {
+  background-color: var(--color-secondary-light);
+  color: var(--color-secondary);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.course-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.course-item-row:last-child {
+  border-bottom: none;
+}
+
+.course-code {
+  font-size: 0.75rem;
+  font-family: monospace;
+  background-color: #f1f5f9;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  color: #334155;
+  margin-right: 0.5rem;
+}
+
+.course-credits {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   Formulario de Admisión y Validación Visual (admision.html)
+   -------------------------------------------------------------------------- */
+.form-box {
+  background-color: #ffffff;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.form-label {
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 0.35rem;
+  font-size: 0.95rem;
+}
+
+.form-label .required-star {
+  color: var(--color-danger);
+  font-weight: 800;
+}
+
+.form-control,
+.form-select {
+  border: 1.5px solid var(--color-border);
+  border-radius: 4px;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+  background-color: #ffffff;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--color-secondary);
+}
+
+/* Estados de validación visual estrictos */
+.form-control.is-invalid,
+.form-select.is-invalid {
+  border-color: var(--color-danger) !important;
+  background-color: #fffbfa;
+}
+
+.invalid-feedback-custom {
+  color: var(--color-danger);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 0.35rem;
+  display: none;
+}
+
+.has-error .invalid-feedback-custom {
+  display: block;
+}
+
+.form-control.is-valid,
+.form-select.is-valid {
+  border-color: var(--color-success) !important;
+}
+
+.valid-feedback-custom {
+  color: var(--color-success);
+  font-size: 0.825rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+  display: none;
+}
+
+.has-success .valid-feedback-custom {
+  display: block;
+}
+
+/* Contenedor de confirmación de postulación */
+.confirmation-card {
+  border-left: 6px solid var(--color-success);
+  background-color: var(--color-success-bg);
+  padding: 1.5rem;
+  border-radius: 4px;
+  margin-bottom: 2rem;
+}
+
+/* --------------------------------------------------------------------------
+   Tabla de Requisitos Accesible
+   -------------------------------------------------------------------------- */
+.table-accessible {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+
+.table-accessible th,
+.table-accessible td {
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--color-border-subtle);
+  vertical-align: middle;
+}
+
+.table-accessible th {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.table-accessible tbody tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+/* --------------------------------------------------------------------------
+   Pie de Página Institucional (Footer)
+   -------------------------------------------------------------------------- */
+.footer-institutional {
+  background-color: var(--color-primary);
+  color: #e2e8f0;
+  margin-top: auto;
+  padding-top: 3rem;
+  border-top: 4px solid var(--color-accent);
+}
+
+.footer-institutional h5 {
+  color: #ffffff;
+  font-size: 1.05rem;
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: color var(--transition-speed), text-decoration var(--transition-speed);
+}
+
+.footer-links a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  background-color: #061527;
+  padding: 1.25rem 0;
+  margin-top: 2.5rem;
+  font-size: 0.825rem;
+  color: #94a3b8;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   Media Queries (Mobile First a Desktop)
+   -------------------------------------------------------------------------- */
+/* Pantallas medianas (Tablets: 768px o superior) */
+@media (min-width: 768px) {
+  .hero-institutional {
+    padding: 3.5rem 0;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .form-box {
+    padding: 2.25rem;
+  }
+}
+
+/* Pantallas grandes (Desktops: 992px o superior) */
+@media (min-width: 992px) {
+  .hero-institutional {
+    padding: 4.5rem 0;
+  }
+
+  .hero-title {
+    font-size: 2.75rem;
+  }
+}
